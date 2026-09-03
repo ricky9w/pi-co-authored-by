@@ -1,0 +1,47 @@
+{
+  "name": "@ricky9w/pi-co-authored-by",
+  "version": "0.1.0",
+  "description": "Safely add Pi attribution trailers to simple git commit commands.",
+  "license": "MIT",
+  "type": "module",
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "pi",
+    "git",
+    "commit",
+    "trailers"
+  ],
+  "homepage": "https://github.com/ricky9w/pi-co-authored-by#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ricky9w/pi-co-authored-by.git"
+  },
+  "bugs": {
+    "url": "https://github.com/ricky9w/pi-co-authored-by/issues"
+  },
+  "files": [
+    "index.ts",
+    "lib/",
+    "README.md",
+    "LICENSE"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-coding-agent": "*"
+  },
+  "devDependencies": {
+    "@earendil-works/pi-coding-agent": "^0.84.4",
+    "typescript": "^5.0.0",
+    "vitest": "^4.0.0"
+  },
+  "pi": {
+    "extensions": ["./index.ts"]
+  }
+}
