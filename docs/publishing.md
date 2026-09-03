@@ -11,9 +11,22 @@ This package publishes publicly to npm as `@ricky9w/pi-co-authored-by`. Releases
    npm whoami
    ```
 
-2. Enable two-factor authentication on that npm account. npm requires it when creating a trusted-publisher relationship.
+2. Upgrade to npm 11.15.0 or newer. Earlier npm versions may expose an incomplete `npm trust` command and fail with HTTP 400:
 
-3. From a clean checkout, validate and publish the first version manually. This bootstrap publish may prompt for your npm 2FA code:
+   ```bash
+   npm install -g npm@latest
+   npm --version
+   ```
+
+3. Enable two-factor authentication on that npm account. `npm login` only authenticates; it does not enroll 2FA:
+
+   ```bash
+   npm profile enable-2fa auth-and-writes
+   ```
+
+   Follow the QR-code/authenticator setup prompts, then confirm the status with `npm profile get`.
+
+4. From a clean checkout, validate and publish the first version manually. This bootstrap publish may prompt for your npm 2FA code:
 
    ```bash
    npm ci
@@ -23,18 +36,19 @@ This package publishes publicly to npm as `@ricky9w/pi-co-authored-by`. Releases
    npm publish --access public
    ```
 
-4. Create the npm-to-GitHub trust relationship:
+5. Create the npm-to-GitHub trust relationship:
 
    ```bash
    npm trust github @ricky9w/pi-co-authored-by \
      --repo ricky9w/pi-co-authored-by \
      --file publish.yml \
+     --allow-publish \
      --yes
    ```
 
-   The workflow filename must match `.github/workflows/publish.yml`. This creates a trusted relationship for that exact GitHub repository and workflow. npm CLI 11.12.x does not accept `--allow-publish`; newer npm versions may expose additional permission flags.
+   The workflow filename must match `.github/workflows/publish.yml`. This creates a trusted relationship for that exact GitHub repository and workflow.
 
-5. Confirm the trusted publisher in npm package settings. No `NPM_TOKEN` GitHub secret is needed or should be configured.
+6. Confirm the trusted publisher in npm package settings. No `NPM_TOKEN` GitHub secret is needed or should be configured.
 
 ## Subsequent releases
 

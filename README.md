@@ -39,12 +39,13 @@ npm test
 
 Publishing is performed by `.github/workflows/publish.yml` when a GitHub Release is published. The workflow uses npm Trusted Publishing with GitHub Actions OIDC and does not use an npm token.
 
-One-time bootstrap after the initial manual npm release:
+One-time bootstrap after the initial manual npm release. `npm trust` requires npm 11.15.0 or newer and an npm account with 2FA enabled:
 
 ```bash
 npm trust github @ricky9w/pi-co-authored-by \
   --repo ricky9w/pi-co-authored-by \
   --file publish.yml \
+  --allow-publish \
   --yes
 ```
 
