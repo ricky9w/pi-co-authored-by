@@ -29,11 +29,10 @@ This package publishes publicly to npm as `@ricky9w/pi-co-authored-by`. Releases
    npm trust github @ricky9w/pi-co-authored-by \
      --repo ricky9w/pi-co-authored-by \
      --file publish.yml \
-     --allow-publish \
      --yes
    ```
 
-   The workflow filename must match `.github/workflows/publish.yml`. This grants users with write access to the GitHub repository permission to publish this npm package through that exact workflow.
+   The workflow filename must match `.github/workflows/publish.yml`. This creates a trusted relationship for that exact GitHub repository and workflow. npm CLI 11.12.x does not accept `--allow-publish`; newer npm versions may expose additional permission flags.
 
 5. Confirm the trusted publisher in npm package settings. No `NPM_TOKEN` GitHub secret is needed or should be configured.
 

@@ -45,7 +45,6 @@ One-time bootstrap after the initial manual npm release:
 npm trust github @ricky9w/pi-co-authored-by \
   --repo ricky9w/pi-co-authored-by \
   --file publish.yml \
-  --allow-publish \
   --yes
 ```
 
