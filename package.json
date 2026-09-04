@@ -1,6 +1,6 @@
 {
   "name": "@ricky9w/pi-co-authored-by",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Safely add Pi attribution trailers to simple git commit commands.",
   "license": "MIT",
   "type": "module",

@@ -28,13 +28,16 @@ describe("Pi tool_call integration", () => {
     expect(event.input.command).toContain("Agent-Model: openai-codex/gpt-5.6-terra");
   });
 
-  it("blocks a chained commit instead of rewriting it unsafely", () => {
-    const event = { toolName: "bash", input: { command: 'git commit -m "release" && git push' } };
+  it.each([
+    'git commit -m "release" && git push',
+    'python3 -m json.tool keybindings.json >/dev/null && git -C /tmp/project commit -m "release" && git push',
+  ])("blocks a chained commit instead of rewriting it unsafely: %s", (command) => {
+    const event = { toolName: "bash", input: { command } };
 
     const result = loadHandler()(event, context);
 
     expect(result).toMatchObject({ block: true });
-    expect(event.input.command).toBe('git commit -m "release" && git push');
+    expect(event.input.command).toBe(command);
   });
 
   it("does not affect non-bash tool calls", () => {

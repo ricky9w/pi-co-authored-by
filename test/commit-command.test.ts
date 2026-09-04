@@ -13,6 +13,10 @@ describe("analyzeCommitCommand", () => {
     ["git commit", "missing-message"],
     ["git commit --amend", "missing-message"],
     ['git commit -m "message" && git push', "unsupported"],
+    [
+      'python3 -m json.tool keybindings.json >/dev/null && git -C /tmp/project commit -m "message" && git push',
+      "unsupported",
+    ],
     ['git commit -m "message" > /tmp/output', "unsupported"],
     ['git commit -m "$(date)"', "unsupported"],
     ["git commit -m 'unterminated", "unsupported"],

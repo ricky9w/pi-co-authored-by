@@ -94,7 +94,10 @@ function attributionState(command: string): "none" | "complete" | "partial" {
 /** Analyze a direct, simple `git … commit` command without executing it. */
 export function analyzeCommitCommand(command: string): CommitCommandAnalysis {
   const result = tokenizeSimpleCommand(command);
-  const looksLikeGitCommit = /^\s*git(?:\s|$)/.test(command) && /\bcommit\b/.test(command);
+  // Once shell syntax is found, only decide whether to reject. Match a direct
+  // `git … commit` segment after a shell control operator too, so a safe
+  // preflight command cannot make a later commit silently bypass attribution.
+  const looksLikeGitCommit = /(?:^|[;&|]\s*)git(?:\s+(?![;&|])\S+)*\s+commit(?:\s|$)/.test(command);
 
   if ("unsupported" in result) {
     return looksLikeGitCommit ? { kind: "unsupported" } : { kind: "not-git-commit" };
